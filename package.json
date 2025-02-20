@@ -8,7 +8,8 @@
     "lint": "eslint",
     "check-types": "tsc --noEmit",
     "validate": "pnpm lint && pnpm check-types",
-    "test": "vitest"
+    "test": "vitest run",
+    "test:watch": "vitest"
   },
   "keywords": [],
   "author": "",

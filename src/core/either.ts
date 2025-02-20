@@ -45,9 +45,3 @@ export const left = <L, R>(value: L): Either<L, R> => {
 export const right = <L, R>(value: R): Either<L, R> => {
   return new Right(value)
 }
-
-// success
-// UI -> CONTROLLER -> USE CASE -> ENTITY -> REPOSITORY -> DB
-
-// failure
-// UI -> CONTROLLER <- USE CASE

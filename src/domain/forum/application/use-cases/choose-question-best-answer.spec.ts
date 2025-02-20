@@ -1,19 +1,29 @@
 import { makeAnswer } from 'test/factories/make-answer'
 import { makeQuestion } from 'test/factories/make-question'
+import { InMemoryAnswerAttachmentsRepository } from 'test/repositories/in-memory-answer-attachments-repository'
 import { InMemoryAnswersRepository } from 'test/repositories/in-memory-answers-repository'
+import { InMemoryQuestionAttachmentsRepository } from 'test/repositories/in-memory-question-attachments-repository'
 import { InMemoryQuestionsRepository } from 'test/repositories/in-memory-questions-repository'
 import { UniqueEntityID } from '@/core/entities/unique-entity-id'
 import { ChooseQuestionBestAnswer } from './choose-question-best-answer'
 import { NotAllowedError } from './errors/not-allowed-error'
 
 describe('Choose Question Best Answer', () => {
+  let answerAttachmentsRepository: InMemoryAnswerAttachmentsRepository
+  let questionAttachmentsRepository: InMemoryQuestionAttachmentsRepository
   let questionsRepository: InMemoryQuestionsRepository
   let answersRepository: InMemoryAnswersRepository
   let sut: ChooseQuestionBestAnswer
 
   beforeEach(() => {
-    questionsRepository = new InMemoryQuestionsRepository()
-    answersRepository = new InMemoryAnswersRepository()
+    answerAttachmentsRepository = new InMemoryAnswerAttachmentsRepository()
+    questionAttachmentsRepository = new InMemoryQuestionAttachmentsRepository()
+    questionsRepository = new InMemoryQuestionsRepository(
+      questionAttachmentsRepository,
+    )
+    answersRepository = new InMemoryAnswersRepository(
+      answerAttachmentsRepository,
+    )
     sut = new ChooseQuestionBestAnswer(questionsRepository, answersRepository)
   })
 
